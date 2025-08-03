@@ -6,6 +6,9 @@ const listingSchema = new Schema({
         type: String,
         required: true,
     },
+    description: {
+        type: String,
+    },
     image: {
         filename: {
             type: String,
@@ -18,7 +21,7 @@ const listingSchema = new Schema({
     },
     price: Number,
     location: String,
-    Country: String,
+    country: String,
 
 });
 
