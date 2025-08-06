@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const Listing = require("./models/listing.js")
 const path = require("path");
 const methodOverride = require("method-override");
+const ejsMate = require("ejs-mate");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/roomnest";
 
@@ -19,10 +20,12 @@ main()
     await mongoose.connect(MONGO_URL);
    }
 
+   app.engine("ejs", ejsMate);
    app.set("view engine", "ejs");
    app.set("views", path.join(__dirname, "views"));
    app.use(express.urlencoded({extended: true}));
    app.use(methodOverride("_method"));
+   app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
     res.send("Hello, I am root");
@@ -80,7 +83,7 @@ app.delete("/listings/:id", async (req, res) => {
 //         description: "By the beach",
 //         price: 1200,
 //         location: "Calangute, Goa",
-//         coutry: "India",
+//         country: "India",
 //     });
 //     await sampleListing.save();
 //     console.log("Listing saved successfully");
