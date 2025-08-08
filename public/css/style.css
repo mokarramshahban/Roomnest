@@ -65,7 +65,7 @@ body{
     object-fit: cover !important;
 }
 .card-body {
-    padding: 0;
+    padding: 0 !important;
 }
 .card-text p {
     font-weight: 400 !important;
@@ -94,4 +94,18 @@ body{
     background-color: #fe424d !important;
     border: none !important;
 
+}
+
+/* Show Page */
+.show-img {
+    height: 30vh;
+}
+
+.btns {
+    display: flex;
+}
+
+.show-card {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
