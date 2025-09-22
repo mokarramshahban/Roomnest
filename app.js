@@ -5,6 +5,8 @@ const Listing = require("./models/listing.js")
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const initData = require("./init/data.js"); // Add this line
+const initIndex = require("./init/index.js"); // Add this line
 
 const MONGO_URL = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/roomnest";
 
@@ -75,6 +77,19 @@ app.delete("/listings/:id", async (req, res) => {
     let deletedListing = await Listing.findByIdAndDelete(id);
     console.log(deletedListing);
     res.redirect("/listings");
+});
+
+// Temporary Route to Seed the Database
+app.get("/seed", async (req, res) => {
+    try {
+        await Listing.deleteMany({});
+        await Listing.insertMany(initData.data);
+        console.log("Database seeded with sample data.");
+        res.send("Database seeded successfully! You can now check the listings page.");
+    } catch (err) {
+        console.error("Database seeding failed:", err);
+        res.status(500).send("Database seeding failed: " + err.message);
+    }
 });
 
 app.use((err, req, res, next) => {
