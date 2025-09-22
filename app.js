@@ -77,6 +77,11 @@ app.delete("/listings/:id", async (req, res) => {
     res.redirect("/listings");
 });
 
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send("Something broke! " + err.message);
+});
+
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
